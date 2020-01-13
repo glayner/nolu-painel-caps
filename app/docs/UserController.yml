@@ -1,0 +1,63 @@
+/users:
+  post:
+    description: create new user
+    produces:
+      - application/json
+    tags:
+      - User
+    parameters:
+      - name: username
+        description: Unique user's name.
+        in: body
+        required: true
+        type: string
+      - name: cpf
+        description: Unique user's cpf.
+        in: body
+        required: true
+        type: string
+      - name: password
+        description: User's password.
+        in: body
+        required: true
+        type: string
+      - name: password_confirmation
+        description: User's password confirmation.
+        in: body
+        required: true
+        type: string
+        schema:
+          $ref: '#/definitions/User'
+
+    responses:
+      200:
+        description: user created
+        example: {
+            "username": "user teste",
+            "cpf": "12345678901",
+            "email": "user@teste.com",
+            "password": "$2a$10$lcGZxxesPbYUcnwD5Ufnlu.aIb6ln3mRMrKdyzTzW.ovhOcvn./0m",
+            "created_at": "2020-01-13 12:04:07",
+            "updated_at": "2020-01-13 12:04:07",
+            "id": 2
+        }
+      400:
+        description: bad request repeated data or validation fails
+        example: [
+          {
+            "message": "cpf não deve ser maior que 11.",
+            "field": "cpf",
+            "validation": "max"
+          },
+          {
+            "message": "email já existe e precisa ser único.",
+            "field": "email",
+            "validation": "unique"
+          },
+          {
+            "message": "password não foi confirmado corretamente.",
+            "field": "password",
+            "validation": "confirmed"
+          }]
+
+

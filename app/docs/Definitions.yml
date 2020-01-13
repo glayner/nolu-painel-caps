@@ -1,0 +1,19 @@
+definitions:
+ User:
+    type: object
+    required:
+      - username
+      - cpf
+      - password
+      - confirmation_password
+    properties:
+      username:
+        type: string
+      cpf:
+        type: string
+        minLength: 11
+        maxLength: 11
+      password:
+        type: string
+      confirmation_password:
+        type: string

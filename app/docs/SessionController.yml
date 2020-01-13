@@ -1,0 +1,54 @@
+/sessions:
+  post:
+    description: load sessions
+    produces:
+      - application/json
+    tags:
+      - Session
+    parameters:
+      - name: cpf
+        description: Unique user's cpf.
+        in: body
+        required: true
+        type: string
+      - name: password
+        description: User's password.
+        in: body
+        required: true
+        type: string
+        schema:
+          type: object
+          required:
+           - cpf
+           - password
+          properties:
+            cpf:
+              type: string
+              minLength: 11
+              maxLength: 11
+            password:
+              type: string
+
+    responses:
+      200:
+        description: token bearer
+        example: {
+          "type": "bearer",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTU3ODkzNzcyOX0.HrA93Zd480Gd53MND67QkS2HYMJM8xfXDEgpG3FwvzE",
+          "refreshToken": null
+        }
+      400:
+        description: bad request validation fails
+        example: [
+          {
+            "message": "cpf não deve ser menor que 11.",
+            "field": "cpf",
+            "validation": "min"
+          }]
+      401:
+        description: Unauthorized user not found
+        example: {
+            "message": "Usuário e/ou senha inválidos."
+          }
+
+
